@@ -20,7 +20,7 @@ class CreateEnterprisesTable extends Migration
             $table->string("description");
             $table->string("manager");
             $table->string("rif");
-            $table->longText("mision");
+            $table->longText("mission");
             $table->longText("vision");
 
             $table->timestamps();
