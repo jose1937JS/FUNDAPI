@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScheduleDoctorSpecialtiesTable extends Migration
+class CreateDoctorPhonesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateScheduleDoctorSpecialtiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('schedule_doctor_specialties', function (Blueprint $table) {
+        Schema::create('doctor_phones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('schedule');
-            $table->unsignedInteger('doctor_specialties_id');
+            $table->string('phone');
+            $table->unsignedInteger('doctor_id');
 
-            $table->foreign('doctor_specialties_id')->references('id')->on('doctor_specialties');
+            $table->foreign('doctor_id')->references('id')->on('doctors');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateScheduleDoctorSpecialtiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedule_doctor_specialties');
+        Schema::dropIfExists('doctor_phones');
     }
 }

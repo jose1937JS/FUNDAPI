@@ -57,6 +57,10 @@
 			width: 100%;
 			bottom: 0;
 		}
+
+		.collapsible-header .active {
+
+		}
 	</style>
 </head>
 <body class="fixed-sn">
@@ -114,41 +118,34 @@
 				</li>
 				<!--/. Logo -->
 				<!--Social-->
-				<li>
-					<ul class="social">
-						<li><a href="#" class="icons-sm fb-ic"><i class="fab fa-facebook-f"></i></a></li>
-						<li><a href="#" class="icons-sm pin-ic"><i class="fab fa-instagram"></i></a></li>
-						<li><a href="#" class="icons-sm pin-ic"><i class="fab fa-google"></i></a></li>
-						<li><a href="#" class="icons-sm tw-ic"><i class="fab fa-twitter"></i></a></li>
-					</ul>
-				</li>
+
 				<!--/Social-->
 				<!-- Side navigation links -->
 				<li>
-					<ul class="collapsible collapsible-accordion">
-						<li>
-							<a class="collapsible-header waves-effect" href="{{ route('productos') }}">
-								<i class="fas fa-chevron-right"></i> Productos
-							</a>
-						</li>
-						<li>
-							<a class="collapsible-header waves-effect">
-								<i class="far fa-hand-pointer"></i> Servicios
-							</a>
-						</li>
-						<li>
-							<a class="collapsible-header waves-effect">
-								<i class="fas fa-eye"></i> Doctores
-							</a>
-						</li>
-						{{-- <li>
-							<a class="collapsible-header waves-effect">
-								<i class="far fa-envelope"></i> Información
+					<ul class="collapsible collapsible-accordion ">
+						<li>{{--
+							<a id="products" class="collapsible-header waves-effect" href="{{ route('products.index') }}">
+								<i class="fas fa-coins"></i> Productos
 							</a>
 						</li> --}}
 						<li>
-							<a class="collapsible-header waves-effect">
-								<i class="far fa-envelope"></i> Información
+							<a id="doctors" class="collapsible-header waves-effect" href="{{ route('doctors.index') }}">
+								<i class="fas fa-user-md"></i> Doctores
+							</a>
+						</li>
+						<li>
+							<a id="services" class="collapsible-header waves-effect" href="{{ route('services.index') }}">
+								<i class="fas fa-clipboard-list"></i> Servicios
+							</a>
+						</li>
+						<li>
+							<a id="specialties" class="collapsible-header waves-effect" href="{{ route('specialties.index') }}">
+								<i class="fas fa-list-ol"></i> Especialidades
+							</a>
+						</li>
+						<li>
+							<a id="enterprise" class="collapsible-header waves-effect" href="{{ route('enterprise.index') }}">
+								<i class="fas fa-clinic-medical"></i> About Us
 							</a>
 						</li>
 					</ul>
@@ -156,14 +153,14 @@
 				<!--/. Side navigation links -->
 			</ul>
 
-			<footer class="page-footer font-small text-center elegant-color py-2">
+			<!--<footer class="page-footer font-small text-center elegant-color py-2">
 				<p>Desarrollado por José López 2019 - 2020</p>
 				<div class="footer-copyright d-flex justify-content-center" style="height: 40px">
 					<a href="https://github.com/jose1937JS/"><i class="fab fa-github"></i></a>
 					<a href="https://www.facebook.com/josefer20"><i class="fab fa-facebook"></i></a>
 					<a href="https://t.me/josepher"><i class="fab fa-telegram"></i></a>
 				</div>
-			</footer>
+			</footer>-->
 
 			<div class="sidenav-bg mask-strong"></div>
 		</div>
@@ -177,19 +174,8 @@
 	<!-- Scripts -->
 	<script src="{{ asset('js/jquery-3.4.1.min.js') }}" ></script>
 	<script src="{{ asset('js/mdb.min.js') }}" ></script>
+	<script src="{{ asset('js/app.js') }}" ></script>
 
-	<script>
-
-	$(() => {
-		// SideNav Button Initialization
-		$(".button-collapse").sideNav({
-			breakpoint: 1024
-		});
-		// SideNav Scrollbar Initialization
-		var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-		var ps = new PerfectScrollbar(sideNavScrollbar);
-	})
-
-	</script>
+	@stack('scripts')
 </body>
 </html>

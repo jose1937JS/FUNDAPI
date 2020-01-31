@@ -18,6 +18,7 @@ class CreateDoctorsTable extends Migration
             $table->string('dni', 9);
             $table->string('name');
             $table->string('lastname');
+            $table->string('schedule');
             $table->timestamps();
         });
     }

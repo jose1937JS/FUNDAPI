@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmailEnterpriseTable extends Migration
+class CreateDoctorServiceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateEmailEnterpriseTable extends Migration
      */
     public function up()
     {
-        Schema::create('email_enterprise', function (Blueprint $table) {
+        Schema::create('doctor_service', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email');
-            $table->unsignedInteger('enterprise_id');
+            $table->unsignedInteger('doctor_id');
+            $table->unsignedInteger('service_id');
 
-            $table->foreign('enterprise_id')->references('id')->on('enterprises');
+            $table->foreign('doctor_id')->references('id')->on('doctors');
+            $table->foreign('service_id')->references('id')->on('services');
             $table->timestamps();
-
         });
     }
 
@@ -31,6 +31,6 @@ class CreateEmailEnterpriseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('email_enterprise');
+        Schema::dropIfExists('doctor_service');
     }
 }

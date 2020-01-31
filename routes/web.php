@@ -15,15 +15,23 @@ Route::get('/', function () {
     return redirect('login');
 });
 
+// Route::get('/home', function () {
+//     return redirect('login');
+// });
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('services', 'ServiceController');
-Route::get('show_all_services', 'ServiceController@show_all');
+Route::middleware(['auth'])->group(function(){
+	Route::resource('services', 'ServiceController');
+	Route::post('services/add_doctor_to_service', 'ServiceController@add_doctor_to_service')->name('services.add_doctor_to_service');
+	Route::delete('services/delete_doctor_from_service/{idesp}/{idserv}', 'ServiceController@delete_doctor_from_service')->name('services.delete_doctor_from_service');
 
-Route::get('productos', 'ProductController@index')->name('productos');
-Route::get('servicios', 'ServiceController@index')->name('servicios');
-Route::get('doctores', 'DoctorController@index')->name('doctores');
-Route::get('empresa', 'EnterpriseController@index')->name('empresa');
+	Route::resource('doctors', 'DoctorController');
+	Route::resource('specialties', 'SpecialtyController');
+	Route::resource('enterprise', 'EnterpriseController');
+});
+
+// Route::get('show_all_services', 'ServiceController@get_all');
 

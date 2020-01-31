@@ -18,9 +18,7 @@ class CreateServicesTable extends Migration
             $table->string("name");
             $table->string("amount");
             $table->string("description");
-            $table->unsignedInteger("schedule_doctor_specialty_id");
-
-            $table->foreign('schedule_doctor_specialty_id')->references('id')->on('schedule_doctor_specialties');
+            $table->string("icon");
             $table->timestamps();
         });
     }
