@@ -10,10 +10,10 @@ use App\DoctorService;
 
 class ServiceController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
+	// public function __construct()
+	// {
+	// 	$this->middleware('auth');
+	// }
 
 	/**
 	 * Display a listing of the resource.
@@ -44,7 +44,12 @@ class ServiceController extends Controller
 		$service->name        = $req->input('servicio');
 		$service->description = $req->input('description');
 		$service->amount      = $req->input('precio');
-		$service->icon        = $req->file('icon')->store('public');
+
+		if ( $req->file('icon')) {
+			$filepath      = $req->file('icon')->store('public');
+			$service->icon = str_replace('public', 'storage', $filepath);
+		}
+
 		$service->save();
 
 		$lastid = $service->lastid();

@@ -6,14 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Enterprise;
 use App\EnterprisePhone;
-use App\EmailEnterprise;
+use App\EnterpriseEmail;
 
 class EnterpriseController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
 
 	/**
 	 * Display a listing of the resource.
@@ -49,12 +45,16 @@ class EnterpriseController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, Enterprise $empresa)
+	public function update(Request $request, $id)
 	{
-		$data = $request->input();
+		$empresa   = Enterprise::find($id);
+		$data      = $request->input();
 
-		$filepath = $request->file('logo')->store('public');
-		$empresa->logo        = str_replace('public', 'storage', $filepath);
+		if ( $request->file('logo')) {
+			$filepath      = $request->file('logo')->store('public');
+			$empresa->logo = str_replace('public', 'storage', $filepath);
+		}
+
 		$empresa->name        = $data['empresa'];
 		$empresa->address     = $data['direccion'];
 		$empresa->description = $data['description'];
@@ -62,6 +62,8 @@ class EnterpriseController extends Controller
 		$empresa->rif         = $data['rif'];
 		$empresa->mission     = $data['mision'];
 		$empresa->vision      = $data['vision'];
+
+		$empresa->save();
 
 		$lastid = $empresa->lastid();
 
@@ -78,11 +80,15 @@ class EnterpriseController extends Controller
 			$tels[] = $value;
 		}
 
-		$entPhones = EnterprisePhone::where('enterprise_id', $empresa->id)->get();
+
+		// $entPhones = EnterprisePhone::where('enterprise_id', $empresa->id)->get();
+		EnterprisePhone::where('enterprise_id', $empresa->id)->delete();
+
 		for ($i = 0; $i < count($tels); $i++) {
-			$entPhones[$i]->phone         = $tels[$i];
-			$entPhones[$i]->enterprise_id = $empresa->id;
-			$entPhones[$i]->save();
+			$newPhones = new EnterprisePhone();
+			$newPhones->phone         = $tels[$i];
+			$newPhones->enterprise_id = $empresa->id;
+			$newPhones->save();
 		}
 
 		$correos = collect($data)->filter(function($v, $k) use ($data){
@@ -98,11 +104,13 @@ class EnterpriseController extends Controller
 			$emails[] = $value;
 		}
 
-		$entEmails = EmailEnterprise::where('enterprise_id', $empresa->id)->get();
+		$entEmails = EnterpriseEmail::where('enterprise_id', $empresa->id)->delete();
+
 		for ($i = 0; $i < count($emails); $i++) {
-			$entEmails[$i]->email         = $tels[$i];
-			$entEmails[$i]->enterprise_id = $empresa->id;
-			$entEmails[$i]->save();
+			$newEmails = new EnterpriseEmail();
+			$newEmails->email         = $emails[$i];
+			$newEmails->enterprise_id = $empresa->id;
+			$newEmails->save();
 		}
 
 		return redirect()->route('enterprise.index')->with('success', 'Se ha actualizado la información de la empresa correctamente.');
@@ -118,4 +126,19 @@ class EnterpriseController extends Controller
 	// {
 	// 	dd($id);
 	// }
+
+
+
+	public function get_all()
+	{
+		$empresa = Enterprise::find(1);
+
+		$empresa = [
+			'telefonos' => $empresa->enterprise_phones,
+			'correos'   => $empresa->enterprise_emails,
+			'empresa'   => $empresa
+		];
+
+		return $empresa;
+	}
 }

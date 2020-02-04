@@ -11,11 +11,19 @@
 			</button>
 		</div>
 
+		@if (session('success'))
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<i class="fas fa-check mr-2"></i>{{ session('success') }}
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		@endif
 
 		<div class="card">
 			<div class="card-body">
 				<div class="view zoom d-flex justify-content-center">
-					<img src="{{ asset('storage/$empresa[0]->logo') }}" class="img-fluid">
+					<img src="{{ asset($empresa[0]->logo) }}" class="img-fluid">
 				</div>
 				<div class="card-text my-4">
 					<h3 class="text-center">{{ $empresa[0]->name }}</h3>
@@ -78,7 +86,7 @@
 								<div class="file-field">
 									<div class="px-2 btn btn-primary btn-sm float-left">
 										<span>Buscar</span>
-										<input type="file" id="fileInput" name="logo" accept=".png, .jpg, .jpeg, .ico, .gif, .svg" required>
+										<input type="file" id="fileInput" name="logo" accept=".png, .jpg, .jpeg, .ico, .gif, .svg">
 									</div>
 									<div class="file-path-wrapper">
 										<input class="file-path validate" type="text" placeholder="Cambiar logo de la empresa">
@@ -160,7 +168,7 @@
 						<div class="col-5">
 							<div class="md-form">
 								<i class="fas fa-phone prefix"></i>
-								<input type="text" class="form-control validate" id="telefono-0" name="telefono" pattern="^[0-9]{4}-[0-9]{3}-[0-9]{2}-[0-9]{2}$" required>
+								<input type="text" class="form-control validate" id="telefono-0" name="telefono" pattern="^[0-9]{4}-[0-9]{3}-[0-9]{2}-[0-9]{2}$" >
 								<label for="telefono-0">Telefono</label>
 							</div>
 						</div>
@@ -172,7 +180,7 @@
 						<div class="col-5">
 							<div class="md-form">
 								<i class="fas fa-envelope prefix"></i>
-								<input type="email" class="form-control validate" id="correo-0" name="correo" required>
+								<input type="email" class="form-control validate" id="correo-0" name="correo" >
 								<label for="correo-0">Correo Electrónico</label>
 							</div>
 						</div>
