@@ -7,6 +7,19 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+# Léeme primero a mí
+### Instrucciones
+
+Para que la api y la app movil funcione correctamente la pc y el telefono tienen que estar conectados a la misma red wifi sin importar que tenga internet o no.
+
+- hacer una copia del archivo .env.example en el mismo directorio y ponerle .env
+- Configurar el usuario y contraseña de mysql en el nuevo archivo .env copiado anteriormente
+- crear la bd y llenarla con informacion `php artisan migrate --seed`
+- correr el servidor `php artisan serve --host=192.168.44.44 --port=8000` donde la ip que puse tiene que ser la direccion wifi de tu maquina
+- Ir al naveagador y colocar la ip de la api para crear un usuario. ej. `http://192.168.44.44:8000/register` Te saldra un formulario para registrar el usuario.
+- Una vez registrado, inicias sesion y alimentas la api con la informacin que desees.
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

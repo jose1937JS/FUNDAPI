@@ -11,11 +11,6 @@ use App\EnterpriseEmail;
 class EnterpriseController extends Controller
 {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 	public function index()
 	{
 		$empresa = Enterprise::all();
@@ -38,13 +33,6 @@ class EnterpriseController extends Controller
 	}
 
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
 	public function update(Request $request, $id)
 	{
 		$empresa   = Enterprise::find($id);
@@ -116,24 +104,12 @@ class EnterpriseController extends Controller
 		return redirect()->route('enterprise.index')->with('success', 'Se ha actualizado la información de la empresa correctamente.');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	// public function destroy($id)
-	// {
-	// 	dd($id);
-	// }
-
-
 
 	public function get_all()
 	{
 		$empresa = Enterprise::find(1);
 
-		$empresa = [
+		$enterprise = [
 			'telefonos' => $empresa->enterprise_phones,
 			'correos'   => $empresa->enterprise_emails,
 			'empresa'   => $empresa
